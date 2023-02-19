@@ -1,0 +1,9 @@
+apiVersion: skaffold/v3alpha1
+kind: Config
+metadata:
+    name: flask-app
+manifests:
+    rawYaml:
+        - deployments/*
+deploy:
+    cloudrun: {}
