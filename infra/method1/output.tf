@@ -34,9 +34,3 @@ output "cloud-deploy-delivery-pipeline-id" {
 output "cloud-deploy-delivery-pipeline-name" {
   value = module.cloud-deploy-delivery-pipeline.delivery-pipeline-name
 }
-
-
-
-
-
-
