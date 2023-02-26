@@ -1,5 +1,9 @@
-module "docker-registry" {
-  source = "github.com/vyusufcan/terraform//artifact_registry"
+module "main" {
+  source = "github.com/vyusufcan/terraform/"
+}
+
+ module "docker-registry" {
+  source = "./.terraform/modules/main/artifact_registry/"
   location = var.location
   project_name = var.project_name
   repository_id = var.repository_id
@@ -7,8 +11,9 @@ module "docker-registry" {
   format = var.format
 }
 
+
 module "cloud-build-trigger" {
-  source = "github.com/vyusufcan/terraform//cloud_build_trigger"
+  source = "./.terraform/modules/main/cloud_build_trigger/"
   location = var.location
   project_name = var.project_name
   cloud_build_trigger_name = var.cloud_build_trigger_name
@@ -19,7 +24,7 @@ module "cloud-build-trigger" {
 
 
 module "cloud-deploy-cloud-run-target" {
-  source = "github.com/vyusufcan/terraform//cloud_deploy_cloud_run_target"
+  source = "./.terraform/modules/main/cloud_deploy_cloud_run_target/"
   location = var.location
   project_name = var.project_name
   cloud_deploy_target_name = var.cloud_deploy_target_name
@@ -29,7 +34,7 @@ module "cloud-deploy-cloud-run-target" {
 }
 
 module "cloud-deploy-delivery-pipeline" {
-  source = "github.com/vyusufcan/terraform//cloud_deploy_delivery_pipeline"
+  source = "./.terraform/modules/main/cloud_deploy_delivery_pipeline"
   location = var.location
   project_name = var.project_name
   delivery_pipeline_name = var.delivery_pipeline_name
