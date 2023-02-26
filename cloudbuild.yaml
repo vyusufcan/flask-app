@@ -1,13 +1,13 @@
 steps:
   # Docker Build
   - name: 'gcr.io/cloud-builders/docker'
-    args: ["-c", "docker build  -t europe-west1-docker.pkg.dev/vyusufcan/docker-registry/flask-app:${SHORT_SHA} --build-arg version=${SHORT_SHA} . "]
+    args: ["-c", "docker build  -t europe-west1-docker.pkg.dev/vyusufcan/docker-registry/flaskapp:${SHORT_SHA} --build-arg version=${SHORT_SHA} . "]
     entrypoint: "bash"
 
   # Docker push to Google Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push',  'europe-west1-docker.pkg.dev/vyusufcan/docker-registry/flask-app:${SHORT_SHA}']
+    args: ['push',  'europe-west1-docker.pkg.dev/vyusufcan/docker-registry/flaskapp:${SHORT_SHA}']
 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    args: ["-c", "gcloud deploy releases create release-$(echo $BUILD_ID | cut -d '-' -f 1) --delivery-pipeline=flask-app --region=europe-west1 --images=flask-app=europe-west1-docker.pkg.dev/vyusufcan/docker-registry/flask-app:${SHORT_SHA}"]
+    args: ["-c", "gcloud deploy releases create release-$(echo $BUILD_ID | cut -d '-' -f 1) --delivery-pipeline=flaskapp --region=europe-west1 --images=flask-app=europe-west1-docker.pkg.dev/vyusufcan/docker-registry/flaskapp:${SHORT_SHA}"]
     entrypoint: "bash"
