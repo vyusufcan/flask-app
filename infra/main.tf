@@ -1,9 +1,38 @@
+data "google_project" "project" {
+  project_id = var.project_id
+}
+
 module "main" {
   source = "github.com/vyusufcan/terraform/"
 }
 
+resource "google_project_service_identity" "cloud_build_sa" {
+  provider = google-beta
+
+  project = data.google_project.project.project_id
+  service = "cloudbuild.googleapis.com"
+}
+
+
+resource "google_project_iam_member" "cloud_build_sa_cloud_deploy_releaser" {
+  project = data.google_project.project.project_id
+  role    = "roles/clouddeploy.releaser"
+  member  = "serviceAccount:${google_project_service_identity.cloud_build_sa.email}"
+}
+
+resource "google_project_iam_member" "cloud_build_sa_service_account_user" {
+  project = data.google_project.project.project_id
+  role    = "roles/iam.serviceAccountUser"
+  member  = "serviceAccount:${google_project_service_identity.cloud_build_sa.email}"
+}
+
+resource "google_project_iam_member" "cloud_build_sa_default_sa" {
+  project = data.google_project.project.project_id
+  role    = "roles/cloudbuild.builds.builder"
+  member  = "serviceAccount:${google_project_service_identity.cloud_build_sa.email}"
+}
  module "docker-registry" {
-  source = "./.terraform/modules/main/artifact_registry/"
+  source = "./.terraform/modules/main/artifact_registry"
   location = var.location
   project_name = var.project_name
   repository_id = var.repository_id
