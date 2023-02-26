@@ -131,6 +131,3 @@ module "cloud-deploy-delivery-pipeline" {
   profiles = var.profiles
   target_id = module.cloud-deploy-cloud-run-target.cloud_deploy_cloud_run_target_id
 }
-
-
-#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

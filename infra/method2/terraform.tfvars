@@ -1,6 +1,6 @@
 location = "europe-west1"
 project_name = "vyusufcan"
-project_id = 24656464449
+
 
 ##########################
 
