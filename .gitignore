@@ -162,3 +162,7 @@ override.tf.json
 # example: *tfplan*
 
 .fleet
+
+*.txt
+
+.tfvars

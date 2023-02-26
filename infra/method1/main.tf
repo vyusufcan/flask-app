@@ -58,8 +58,7 @@ module "cloud-deploy-cloud-run-target" {
   project_name = var.project_name
   cloud_deploy_target_name = var.cloud_deploy_target_name
   require_approval = var.require_approval
-  cloud_run_location = var.cloud_run_location
-
+  cloud_run_location = "projects/${var.project_name}/locations/${var.location}"
 }
 
 module "cloud-deploy-delivery-pipeline" {
